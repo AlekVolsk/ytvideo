@@ -1,0 +1,81 @@
+/*
+ * @package     Joomla.Plugin
+ * @subpackage  Content.ytvideo
+ * @copyright   Copyright (C) 2017 Aleksey A. Morozov. All rights reserved.
+ * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
+ */
+
+.ytvideo {
+	position: relative;
+	max-width: 100%;
+	width: 100%;
+	height: 0;
+	overflow: hidden;
+}
+
+.ytvideo-16-9 {
+	padding-bottom: 56.25%;
+}
+
+.ytvideo-16-10 {
+	padding-bottom: 62.5%;
+}
+
+.ytvideo-4-3 {
+	padding-bottom: 75%;
+}
+
+.ytvideo-cover,
+.ytvideo-cover:before,
+.ytvideo iframe,  
+.ytvideo object,  
+.ytvideo embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.ytvideo-cover {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ytvideo-cover:before {
+	content: '';
+	transition: .3s all;
+}
+
+.ytvideo-cover:hover:before {
+	background-color:rgba(0,0,0,.1);
+}
+
+.ytvideo-cover:after {
+	position: absolute;
+	content: '';
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 15%;
+	height: 48px;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2068%2048%22%20width%3D%2268%22%20height%3D%2248%22%3E%3Cpath%20d%3D%22M66.52%2C7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79%2C.13%2C34%2C0%2C34%2C0S12.21%2C.13%2C6.9%2C1.55%20C3.97%2C2.33%2C2.27%2C4.81%2C1.48%2C7.74C0.06%2C13.05%2C0%2C24%2C0%2C24s0.06%2C10.95%2C1.48%2C16.26c0.78%2C2.93%2C2.49%2C5.41%2C5.42%2C6.19%20C12.21%2C47.87%2C34%2C48%2C34%2C48s21.79-0.13%2C27.1-1.55c2.93-0.78%2C4.64-3.26%2C5.42-6.19C67.94%2C34.95%2C68%2C24%2C68%2C24S67.94%2C13.05%2C66.52%2C7.74z%22%20fill%3D%22%23f00%22%20fill-opacity%3D%220.8%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M%2045%2C24%2027%2C14%2027%2C34%22%20fill%3D%22%23fff%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ytvideo-title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px 20px 5px;
+	font-size: 1.2rem;
+	line-height: 1.8;
+	background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.35) 20px,rgba(0,0,0,.35) 100%);
+	color: #fff;
+	text-shadow: 0 0 2px #222;
+	text-align: center;
+}

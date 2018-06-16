@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<extension type="plugin" version="3.0" method="upgrade" group="content">
+    <name>PLG_YTVIDEO</name>
+    <author>Aleksey A. Morozov</author>
+    <authorEmail>alekvolsk@yandex.ru</authorEmail>
+    <authorUrl>https://alekvolsk.pw</authorUrl>
+    <copyright>© 2018 Aleksey A. Morozov. All right reserved.</copyright>
+    <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
+    <creationDate>June 2017</creationDate>
+    <version>1.0.0</version>
+    <description>PLG_YTVIDEO_DESC</description>
+    <scriptfile>script.php</scriptfile>
+    <files>
+        <filename plugin="ytvideo">ytvideo.php</filename>
+        <folder>assets</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.plg_content_ytvideo.ini</language>
+        <language tag="en-GB">en-GB/en-GB.plg_content_ytvideo.sys.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.plg_content_ytvideo.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.plg_content_ytvideo.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="format" type="radio" label="PLG_YTVIDEO_FORMAT" class="btn-group btn-yesno" default="16-9" >
+                    <option value="16-9">16:9</option>
+                    <option value="16-10">16:10</option>
+                    <option value="4-3">4:3</option>
+                </field>
+                <field name="includes" type="radio" label="PLG_YTVIDEO_INCLUDES" class="btn-group btn-yesno" default="1" >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
