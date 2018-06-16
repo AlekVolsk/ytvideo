@@ -11,7 +11,7 @@ Content plugin for video output from YouTube. Content-plugin for Joomla! 3
 Shortcode format:
 
 ```
-{ytvideo full_url[|video]}
+{ytvideo full_url[|title]}
 ```
 
-To quickly insert a shortcode, there is an editor button that opens a dialog box that allows you to enter the url and title of the video in the appropriate fields.
+Specifying a title is optional. To quickly insert a shortcode, there is an editor button that opens a dialog box that allows you to enter the url and title of the video in the appropriate fields.
