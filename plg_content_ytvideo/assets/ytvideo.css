@@ -13,6 +13,10 @@
 	overflow: hidden;
 }
 
+.ytvideo-18-9 {
+	padding-bottom: 50%;
+}
+
 .ytvideo-16-9 {
 	padding-bottom: 56.25%;
 }
@@ -74,7 +78,7 @@
 	padding: 10px 20px 5px;
 	font-size: 1.2rem;
 	line-height: 1.8;
-	background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.35) 20px,rgba(0,0,0,.35) 100%);
+	background-color: rgba(0,0,0,.2);
 	color: #fff;
 	text-shadow: 0 0 2px #222;
 	text-align: center;

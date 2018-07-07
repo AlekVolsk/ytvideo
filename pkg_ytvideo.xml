@@ -8,10 +8,9 @@
     <copyright>© 2018 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
     <creationDate>June 2017</creationDate>
-    <version>1.0.0</version>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description><![CDATA[Content plugin for video output from YouTube.]]></description>
     <files>
         <folder type="plugin" id="ytvideo" group="content" method="upgrade" client="site">plg_content_ytvideo</folder>
