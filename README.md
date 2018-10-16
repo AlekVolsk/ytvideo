@@ -4,7 +4,7 @@
 
 Content plugin for video output from YouTube. Content-plugin for Joomla! 3
 
-**v1.0.1**
+**v1.0.2**
 
 **Joomla 3.2 or later**
 
