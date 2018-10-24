@@ -1,12 +1,10 @@
 # YtVideo
 
-![Github Releases](https://img.shields.io/github/downloads/AlekVolsk/ytvideo/latest/total.svg)
-
 Content plugin for video output from YouTube. Content-plugin for Joomla! 3
 
-**v1.0.2**
+**v1.1.0**
 
-**Joomla 3.2 or later**
+**Joomla 3.7 or later**
 
 **PHP 5.6 or later**
 
