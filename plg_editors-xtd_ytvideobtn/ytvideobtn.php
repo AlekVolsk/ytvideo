@@ -2,23 +2,28 @@
 /*
  * @package     Joomla.Plugin
  * @subpackage  Editors-xtd.ytvideobtn
- * @copyright   Copyright (C) 2017 Aleksey A. Morozov. All rights reserved.
+ * @copyright   Copyright (C) 2018 Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
 defined('_JEXEC') or die;
 
-class PlgEditorsXtdYtvideobtn extends JPlugin
+use Joomla\CMS\Factory;
+use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Language\Text;
+
+class PlgEditorsXtdYtvideobtn extends CMSPlugin
 {
 	protected $autoloadLanguage = true;
 
-	public function onDisplay($name, $asset, $author)
+	public function onDisplay( $name, $asset, $author )
 	{
-		$modal_title = JText::_('PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_TITLE');
-		$modal_brn_insert = JText::_('PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_INSERT');
-		$modal_btn_cancel = JText::_('PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_CANCEL');
-		$modal_label_url = JText::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_URL');
-		$modal_label_title = JText::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_TITLE');
+		$modal_title = Text::_( 'PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_TITLE' );
+		$modal_brn_insert = Text::_( 'PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_INSERT' );
+		$modal_btn_cancel = Text::_( 'PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_CANCEL' );
+		$modal_label_url = Text::_( 'PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_URL' );
+		$modal_label_title = Text::_( 'PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_TITLE' );
 
 		$html = <<<HTML
 <div id="ytvideo-modal" class="modal hide fade" role="dialog" aria-hidden="true">
@@ -68,42 +73,43 @@ class PlgEditorsXtdYtvideobtn extends JPlugin
 }
 </style>
 HTML;
-		$html = trim(str_replace("\n", '', $html));
+		$html = trim( str_replace( "\n", '', $html ) );
 		
 		$js = <<<JS
-jQuery(document).ready(function()
+jQuery( document ).ready( function()
 {
-	jQuery('body').append('$html');
+	jQuery( 'body' ).append( '$html' );
 });
-function urlcheckYtvideo(url)
+function urlcheckYtvideo( url )
 {
 	var u= /http(s?):\/\/[-\w\.]{3,}\.[A-Za-z]{2,3}/;
-	return u.test(url);
+	return u.test( url );
 }
-window.insertYtvideo = function(editor)
+window.insertYtvideo = function( editor )
 {
-	jQuery('#ytvideo-modal').modal('show');
-	jQuery('#ytvideo-modal .btn-primary').click(function(){
-		var url = jQuery('#ytvideo-url').val().trim();
-		var title = jQuery('#ytvideo-title').val().trim();
-		if (url != '' && urlcheckYtvideo(url) != false)
+	jQuery( '#ytvideo-modal' ).modal( 'show' );
+	jQuery( '#ytvideo-modal .btn-primary' ).click( function()
+	{
+		var url = jQuery( '#ytvideo-url' ).val().trim();
+		var title = jQuery( '#ytvideo-title' ).val().trim();
+		if ( url != '' && urlcheckYtvideo( url ) != false )
 		{
-			if (title != '') { title = '|' + title; }
-			window.jInsertEditorText('{ytvideo ' + url + title + '}', editor);
+			if ( title != '' ) { title = '|' + title; }
+			window.jInsertEditorText( '{ytvideo ' + url + title + '}', editor );
 		}
-		jQuery('#ytvideo-url').val('');
-		jQuery('#ytvideo-title').val('');
-		jQuery('#ytvideo-modal').modal('hide');
+		jQuery( '#ytvideo-url' ).val( '' );
+		jQuery( '#ytvideo-title' ).val( '' );
+		jQuery( '#ytvideo-modal' ).modal( 'hide' );
 	});
 };
 JS;
-		JFactory::getDocument()->addScriptDeclaration($js);
+		Factory::getDocument()->addScriptDeclaration( $js );
 
-		$button = new JObject;
+		$button = new CMSObject;
 		$button->modal   = false;
 		$button->class   = 'btn btn-danger';
 		$button->link    = '#';
-		$button->text    = JText::_('Youtube');
+		$button->text    = Text::_( 'YouTube' );
 		$button->name    = 'youtube';
 		$button->onclick = 'insertYtvideo(\'' . $name . '\');return false;';
 		

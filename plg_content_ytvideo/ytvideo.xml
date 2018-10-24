@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension type="plugin" version="3.0" method="upgrade" group="content">
+<extension type="plugin" version="3.7" method="upgrade" group="content">
     <name>PLG_YTVIDEO</name>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -7,7 +7,7 @@
     <copyright>© 2018 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
     <creationDate>June 2017</creationDate>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
     <description>PLG_YTVIDEO_DESC</description>
     <scriptfile>script.php</scriptfile>
     <files>
