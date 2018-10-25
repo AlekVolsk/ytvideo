@@ -17,8 +17,8 @@ class plgEditorsXtdYtvideobtnInstallerScript
 		$query
 			->update( '#__extensions' )
 			->set( 'enabled=1' )
-			->where( 'type=' . $db->qopte( 'plugin' ) )
-			->where( 'element=' . $db->qoute( 'ytvideobtn' ) );
+			->where( 'type=' . $db->quote( 'plugin' ) )
+			->where( 'element=' . $db->quote( 'ytvideobtn' ) );
 		$db->setQuery( $query )->execute();
 	}
 }

@@ -7,7 +7,6 @@
  */
 
 ?>
-
 <div class="ytvideo ytvideo-<?php echo $this->params->get('format', '16-9'); ?>">
 	<a class="ytvideo-cover" style="background-image:url('<?php echo $image; ?>')" src="<?php echo $id; ?>">
 		<?php if ( $title ) { ?>
