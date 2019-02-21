@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="3.8" method="upgrade">
+<extension type="package" version="3.7" method="upgrade">
     <name>ytvideo</name>
     <packagename>ytvideo</packagename>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
     <authorUrl>https://alekvolsk.pw</authorUrl>
-    <copyright>© 2018 Aleksey A. Morozov. All right reserved.</copyright>
+    <copyright>© 2019 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>October 2018</creationDate>
+    <creationDate>February 2019</creationDate>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <description><![CDATA[Content plugin for video output from YouTube.]]></description>
     <files>
         <folder type="plugin" id="ytvideo" group="content" method="upgrade" client="site">plg_content_ytvideo</folder>
