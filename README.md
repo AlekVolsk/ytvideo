@@ -1,12 +1,12 @@
 # YtVideo
 
-Content plugin for video output from YouTube. Content-plugin for Joomla! 3
+![Version](https://img.shields.io/badge/VERSION-1.2.0-0366d6.svg?style=for-the-badge)
+![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
+![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
-**v1.2.0**
+_description in Russian [here](README.ru.md)_
 
-**Joomla 3.7 or later**
-
-**PHP 5.6 or later**
+Content plugin for Joomla! 3 for video output from YouTube.
 
 Shortcode format:
 ```
