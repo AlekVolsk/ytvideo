@@ -19,6 +19,7 @@ class plgContentYtvideo extends CMSPlugin
             return;
         }
 
+
         $results = [];
         preg_match_all('|{ytvideo\s(.*?)}|U', $article->text, $results);
         if (!$results) {
@@ -27,7 +28,7 @@ class plgContentYtvideo extends CMSPlugin
 		
 		$layout = PluginHelper::getLayoutPath('content', 'ytvideo');
 
-		HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js', [], ['options' => ['version' => 'auto']]);
+		HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js');
 
         if ($this->params->get('includes') == '1') {
             $css = str_replace(JPATH_ROOT, '', dirname($layout) . '/' . basename($layout, '.php') . '.css');
@@ -35,7 +36,13 @@ class plgContentYtvideo extends CMSPlugin
                 $css = 'plugins/content/ytvideo/assets/ytvideo.css';
             }
             $css = str_replace('\\', '/', $css);
-			HTMLHelper::stylesheet($css, [], ['options' => ['version' => 'auto']]);
+			HTMLHelper::stylesheet($css);
+        }
+
+        $lazysizes = $this->params->get('lazysizes') == '1';
+        if ($lazysizes) {
+            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js');
+            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js');
         }
 
         foreach ($results[1] as $key => $link) {
