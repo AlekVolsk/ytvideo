@@ -24,6 +24,7 @@ class PlgEditorsXtdYtvideobtn extends CMSPlugin
         $modal_brn_insert = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_INSERT');
         $modal_btn_cancel = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_MODAL_BTN_CANCEL');
         $modal_label_url = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_URL');
+        $modal_label_ratio = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_RATIO');
         $modal_label_title = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_TITLE');
 
         $html = <<<HTML
@@ -40,6 +41,19 @@ class PlgEditorsXtdYtvideobtn extends CMSPlugin
                 </div>
                 <div class="controls">
                     <input name="ytvideourl" id="ytvideo-url" value="" class="span12" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="ytvideo-ratio">$modal_label_ratio</label>
+                </div>
+                <div class="controls">
+                    <select name="ytvideoratio" id="ytvideo-ratio" class="span12">
+                        <option value="4-3">4:3</option>
+                        <option value="16-9" selected>16:9</option>
+                        <option value="16-10">16:10</option>
+                        <option value="18-9">18:9</option>
+                    </select>
                 </div>
             </div>
             <div class="control-group">
@@ -92,13 +106,14 @@ window.insertYtvideo = function(editor)
 	jQuery('#ytvideo-modal .btn-primary').click( function()
 	{
 		var url = jQuery('#ytvideo-url').val().trim();
+		var ratio = jQuery('#ytvideo-ratio option:selected').text();
 		var title = jQuery('#ytvideo-title').val().trim();
 		if (url != '' && urlcheckYtvideo( url ) != false)
 		{
 			if (title != '') {
 				title = '|' + title;
 			}
-			window.jInsertEditorText('{ytvideo ' + url + title + '}', editor);
+			window.jInsertEditorText('{ytvideo ' + url + '|' + ratio + title + '}', editor);
 		}
 		jQuery('#ytvideo-url').val('' );
 		jQuery('#ytvideo-title').val('');
@@ -106,7 +121,7 @@ window.insertYtvideo = function(editor)
 	});
 };
 JS;
-        HTMLHelper::_( 'jquery.framework', false, null, false );
+        HTMLHelper::_('jquery.framework', false, null, false);
         Factory::getDocument()->addScriptDeclaration($js);
 
         $button = new CMSObject;

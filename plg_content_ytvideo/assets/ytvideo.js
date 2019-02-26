@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.ytvideo > .ytvideo-cover')) {
         document.querySelector('.ytvideo > .ytvideo-cover').addEventListener('click', function (e) {
             var target = e.target || e.srcElement;
-            target.innerHTML = "<iframe src='https://youtube.com/embed/" + target.getAttribute('videosrc') + "?autoplay=1&rel=0&iv_load_policy=3' allow='accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture' allowfullscreen style='border:0;'></iframe>";
+            target.innerHTML = "<iframe src='https://youtube.com/embed/" + target.dataset.videosrc + "?autoplay=1&rel=0&iv_load_policy=3' allow='accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture' allowfullscreen style='border:0;'></iframe>";
         });
     }
 });

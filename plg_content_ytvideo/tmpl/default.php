@@ -5,12 +5,11 @@
  * @copyright   Copyright (C) 2019 Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
-
 ?>
-<div class="ytvideo ytvideo-<?php echo $this->params->get('format', '16-9'); ?>">
+<div class="ytvideo ytvideo-<?php echo $ratio; ?>">
 	<a
 		class="ytvideo-cover lazyload"
-		videosrc="<?php echo $id; ?>"
+		data-videosrc="<?php echo $id; ?>"
 		<?php if ($lazysizes) { ?>
 		data-bgset="<?php echo $image; ?>"
 		<?php } else { ?>

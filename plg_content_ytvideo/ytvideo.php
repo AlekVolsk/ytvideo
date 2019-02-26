@@ -13,22 +13,27 @@ use Joomla\CMS\HTML\HTMLHelper;
 class plgContentYtvideo extends CMSPlugin
 {
 
-    public function onContentPrepare($context, $article, $params)
+    public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
         if ($context == 'com_finder.indexer') {
-            return;
+            return false;
         }
-
 
         $results = [];
         preg_match_all('|{ytvideo\s(.*?)}|U', $article->text, $results);
+        foreach ($results as $k => $result) {
+            if (!$result) {
+                unset($results[$k]);
+            }
+        }
         if (!$results) {
-            return;
+            return false;
         }
 		
-		$layout = PluginHelper::getLayoutPath('content', 'ytvideo');
+        $layout = PluginHelper::getLayoutPath('content', 'ytvideo');
+        $format = $this->params->get('format', '16-9');
 
-		HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js');
+		HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js', [], ['options' => ['version' => 'auto']]);
 
         if ($this->params->get('includes') == '1') {
             $css = str_replace(JPATH_ROOT, '', dirname($layout) . '/' . basename($layout, '.php') . '.css');
@@ -36,21 +41,33 @@ class plgContentYtvideo extends CMSPlugin
                 $css = 'plugins/content/ytvideo/assets/ytvideo.css';
             }
             $css = str_replace('\\', '/', $css);
-			HTMLHelper::stylesheet($css);
+			HTMLHelper::stylesheet($css, [], ['options' => ['version' => 'auto']]);
         }
 
         $lazysizes = $this->params->get('lazysizes') == '1';
         if ($lazysizes) {
-            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js');
-            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js');
+            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js', [], ['options' => ['version' => 'auto']]);
+            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js', [], ['options' => ['version' => 'auto']]);
         }
 
         foreach ($results[1] as $key => $link) {
             $tmp = explode('|', strip_tags($link));
-            $link = $tmp[0];
+            
+            $link = trim($tmp[0]);
+            unset($tmp[0]);
+            
+            if (count($tmp) && isset($tmp[1])) {
+                $ratio = str_replace([':', ' '], ['-'. ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
+                if (in_array($ratio, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
+                    unset($tmp[1]);
+                } else {
+                    $ratio = $format;
+                }
+            }
+            
             $title = '';
-            if (count($tmp) > 1) {
-                $title = trim($tmp[1]);
+            if (count($tmp)) {
+                $title = trim(implode(' ', $tmp));
             }
 
             $match = [];
