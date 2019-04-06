@@ -56,12 +56,11 @@ class plgContentYtvideo extends CMSPlugin
             $link = trim($tmp[0]);
             unset($tmp[0]);
             
+            $ratio = $format;
             if (count($tmp) && isset($tmp[1])) {
                 $ratio = str_replace([':', ' '], ['-'. ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
                 if (in_array($ratio, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
                     unset($tmp[1]);
-                } else {
-                    $ratio = $format;
                 }
             }
             

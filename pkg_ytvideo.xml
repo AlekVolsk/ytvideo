@@ -10,7 +10,7 @@
     <creationDate>February 2019</creationDate>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <description><![CDATA[Content plugin for video output from YouTube.]]></description>
     <files>
         <folder type="plugin" id="ytvideo" group="content" method="upgrade" client="site">plg_content_ytvideo</folder>
