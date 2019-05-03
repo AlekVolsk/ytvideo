@@ -7,10 +7,10 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>© 2019 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>February 2019</creationDate>
+    <creationDate>May 2019</creationDate>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.4.1</version>
+    <version>1.5.0</version>
     <description><![CDATA[Content plugin for video output from YouTube.]]></description>
     <files>
         <folder type="plugin" id="ytvideo" group="content" method="upgrade" client="site">plg_content_ytvideo</folder>

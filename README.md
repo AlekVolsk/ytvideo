@@ -1,6 +1,6 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.4.1-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.5.0-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
@@ -10,7 +10,7 @@ Content plugin for Joomla! 3 for video output from YouTube.
 
 This solution compares favorably with others in that it downloads video from YouTube not when loading the page, but only after the playback starts, thus creating no delays when loading the page.
 
-The background image supports lazy loading (available in settings, enabled by default).
+The background image pre-cached and supports lazy loading (available in settings, enabled by default).
 
 Shortcode format:
 ```

@@ -6,9 +6,12 @@
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\FileSystem\Path;
+use Joomla\CMS\FileSystem\Folder;
 
 class plgContentYtvideo extends CMSPlugin
 {
@@ -28,6 +31,12 @@ class plgContentYtvideo extends CMSPlugin
         }
         if (!$results) {
             return false;
+        }
+
+        $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', ''));
+        $cachFolder = is_dir($cachFolder) ? $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR : '';
+        if ($cachFolder && !is_dir($cachFolder)) {
+            Folder::create($cachFolder, 0755);
         }
 		
         $layout = PluginHelper::getLayoutPath('content', 'ytvideo');
@@ -72,14 +81,31 @@ class plgContentYtvideo extends CMSPlugin
             $match = [];
             preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match);
 
+            $images = ['maxresdefault.jpg', 'sddefault.jpg', 'hqdefault.jpg', 'mqdefault.jpg', 'default.jpg'];
+
             if (count($match) > 1) {
-				$id = $match[1];
-                $images = ['maxresdefault.jpg', 'sddefault.jpg', 'hqdefault.jpg', 'mqdefault.jpg', 'default.jpg'];
-                foreach ($images as $img) {
-                    $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img;
-                    if ((bool)@file_get_contents($image) !== false) {
-                        break;
+                $resultImage = false;
+                $id = $match[1];
+                $cachedImage = $cachFolder . $id . '.jpg';
+                
+                if (!file_exists($cachedImage)) {
+                    foreach ($images as $img) {
+                        $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img;
+                        $buffer = @file_get_contents($image);
+                        if ((bool)$buffer !== false) {
+                            $resultImage = true;
+                            if ($cachFolder) {
+                                file_put_contents($cachedImage, $buffer);
+                                $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                            }
+                            break;
+                        }
                     }
+                    if (!$resultImage || !file_exists($cachedImage)) {
+                        $image = '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty.png');
+                    }
+                } else {
+                    $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                 }
 
 				ob_start();

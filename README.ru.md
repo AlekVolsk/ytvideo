@@ -1,6 +1,6 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.4.1-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.5.0-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
@@ -8,7 +8,7 @@
 
 Это решение выгодно отличается от других тем, что загружает видео с YouTube не при загрузке страницы, а только после начала воспроизведения, что не создает задержек при загрузке страницы.
 
-Фоновое изображение поддерживает ленивую загрузку (включается в настройках, по умолчанию включено).
+Фоновое изображение предварительно кешируется и поддерживает ленивую загрузку (включается в настройках, по умолчанию включено).
 
 Формат шорткода:
 
