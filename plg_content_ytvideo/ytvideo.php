@@ -38,11 +38,11 @@ class plgContentYtvideo extends CMSPlugin
         if ($cachFolder && !is_dir($cachFolder)) {
             Folder::create($cachFolder, 0755);
         }
-		
+
         $layout = PluginHelper::getLayoutPath('content', 'ytvideo');
         $format = $this->params->get('format', '16-9');
 
-		HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js', [], ['options' => ['version' => 'auto']]);
+        HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js', [], ['options' => ['version' => 'auto']]);
 
         if ($this->params->get('includes') == '1') {
             $css = str_replace(JPATH_ROOT, '', dirname($layout) . '/' . basename($layout, '.php') . '.css');
@@ -50,7 +50,7 @@ class plgContentYtvideo extends CMSPlugin
                 $css = 'plugins/content/ytvideo/assets/ytvideo.css';
             }
             $css = str_replace('\\', '/', $css);
-			HTMLHelper::stylesheet($css, [], ['options' => ['version' => 'auto']]);
+            HTMLHelper::stylesheet($css, [], ['options' => ['version' => 'auto']]);
         }
 
         $lazysizes = $this->params->get('lazysizes') == '1';
@@ -61,18 +61,19 @@ class plgContentYtvideo extends CMSPlugin
 
         foreach ($results[1] as $key => $link) {
             $tmp = explode('|', strip_tags($link));
-            
+
             $link = trim($tmp[0]);
             unset($tmp[0]);
-            
+
             $ratio = $format;
             if (count($tmp) && isset($tmp[1])) {
-                $ratio = str_replace([':', ' '], ['-'. ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
-                if (in_array($ratio, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
+                $r_tmp = str_replace([':', ' '], ['-' . ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
+                if (in_array($r_tmp, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
+
                     unset($tmp[1]);
                 }
             }
-            
+
             $title = '';
             if (count($tmp)) {
                 $title = trim(implode(' ', $tmp));
@@ -87,7 +88,7 @@ class plgContentYtvideo extends CMSPlugin
                 $resultImage = false;
                 $id = $match[1];
                 $cachedImage = $cachFolder . $id . '.jpg';
-                
+
                 if (!file_exists($cachedImage)) {
                     foreach ($images as $img) {
                         $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img;
@@ -108,10 +109,10 @@ class plgContentYtvideo extends CMSPlugin
                     $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                 }
 
-				ob_start();
-				include $layout;
-				$article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
-			}
+                ob_start();
+                include $layout;
+                $article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
+            }
         }
     }
 }
