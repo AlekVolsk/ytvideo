@@ -14,7 +14,7 @@ The background image pre-cached and supports lazy loading (available in settings
 
 Shortcode format:
 ```
-{ytvideo full_url[|[ratio]|title]}
+{ytvideo full_url[|ratio][|title]}
 ```
 
 For example:
@@ -22,11 +22,7 @@ For example:
 {ytvideo https://www.youtube.com/watch?v=rrRZZ_3licM|16:9|What is a computer really? / An introduction to programming, lesson 1 (JavaScript ES6)}
 ```
 
-Example of use without specifying the format (note the double slash):
-
-```
-{ytvideo https://www.youtube.com/watch?v=rrRZZ_3licM||What is a computer really? / An introduction to programming, lesson 1 (JavaScript ES6)}
-```
+Some parts of the shortcode may be missing, but their order must be preserved: address|ratio|title.
 
 Allowable aspect ratios are: `4:3`, `16:10`, `16:9`, `18:9` (a minus sign is allowed to be substituted for a colon). Incorrect aspect ratio will be part of the heading following it.
 
