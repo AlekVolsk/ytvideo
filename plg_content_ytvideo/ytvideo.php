@@ -11,7 +11,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\FileSystem\Path;
-use Joomla\CMS\FileSystem\Folder;
+//use Joomla\CMS\FileSystem\Folder;
 
 class plgContentYtvideo extends CMSPlugin
 {
@@ -36,7 +36,7 @@ class plgContentYtvideo extends CMSPlugin
         $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', ''));
         $cachFolder = is_dir($cachFolder) ? $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR : '';
         if ($cachFolder && !is_dir($cachFolder)) {
-            Folder::create($cachFolder, 0755);
+            JFolder::create($cachFolder, 0755);
         }
 
         $layout = PluginHelper::getLayoutPath('content', 'ytvideo');

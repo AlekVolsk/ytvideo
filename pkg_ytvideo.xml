@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <extension type="package" version="3.7" method="upgrade">
-    <name>ytvideo</name>
+    <name>Youtube video</name>
     <packagename>ytvideo</packagename>
     <author>Aleksey A. Morozov</author>
     <authorEmail>alekvolsk@yandex.ru</authorEmail>
@@ -10,7 +10,7 @@
     <creationDate>May 2019</creationDate>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <description><![CDATA[Content plugin for video output from YouTube.]]></description>
     <files>
         <folder type="plugin" id="ytvideo" group="content" method="upgrade" client="site">plg_content_ytvideo</folder>
