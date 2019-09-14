@@ -23,6 +23,6 @@
         <folder type="plugin" id="ytvideobtn" group="editors-xtd" method="upgrade" client="site">plg_editors-xtd_ytvideobtn</folder>
     </files>
     <updateservers>
-        <server type="extension" priority="2" name="PKG_VMVIDEO"><![CDATA[https://joomla-update.org/extensions/ytvideo/ytvideo_update.xml]]></server>
+        <server type="extension" priority="2" name="PKG_YTVIDEO"><![CDATA[https://joomla-update.org/extensions/ytvideo/ytvideo_update.xml]]></server>
     </updateservers>
 </extension>
