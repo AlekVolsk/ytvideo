@@ -6,8 +6,8 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>© 2019 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>August 2019</creationDate>
-    <version>1.5.3</version>
+    <creationDate>September 2019</creationDate>
+    <version>1.5.4</version>
     <description>PLG_YTVIDEO_DESC</description>
     <scriptfile>script.php</scriptfile>
     <files>
@@ -24,21 +24,25 @@
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field name="format" type="radio" label="PLG_YTVIDEO_FORMAT" class="btn-group btn-yesno" default="16-9" >
+                <field name="format" type="radio" label="PLG_YTVIDEO_FORMAT" class="btn-group btn-yesno" default="16-9">
                     <option value="18-9">18:9</option>
                     <option value="16-9">16:9</option>
                     <option value="16-10">16:10</option>
                     <option value="4-3">4:3</option>
                 </field>
-                <field name="includes" type="radio" label="PLG_YTVIDEO_INCLUDES" class="btn-group btn-yesno" default="1" >
+                <field name="includes" type="radio" label="PLG_YTVIDEO_INCLUDES" class="btn-group btn-yesno" default="1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-                <field name="lazysizes" type="radio" label="PLG_YTVIDEO_LAZYSIZES" class="btn-group btn-yesno" default="1" >
+                <field name="lazysizes" type="radio" label="PLG_YTVIDEO_LAZYSIZES" class="btn-group btn-yesno" default="1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
                 <field name="emptyimg" type="media" label="PLG_YTVIDEO_EMPTYIMG" description="PLG_YTVIDEO_EMPTYIMG_DESC" class="input-xlarge" default="plugins/content/ytvideo/assets/empty.png" />
+                <field name="oldframes" type="radio" label="PLG_YTVIDEO_OLDFRAMES" description="PLG_YTVIDEO_OLDFRAMES_DESC" class="btn-group btn-yesno" default="0">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         </fields>
     </config>

@@ -1,12 +1,14 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.5.3-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.5.4-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
 Контентный плагин для Joomla! 3 для вывода видео с YouTube.
 
 Это решение выгодно отличается от других тем, что загружает видео с YouTube не при загрузке страницы, а только после начала воспроизведения, что не создает задержек при загрузке страницы.
+
+Имеется возможность заменять рамее вставленные `<iframe>` с ссылками на YouTube на ссылки-превьюб что позволит значительно ускорить рендер страницы.
 
 Фоновое изображение предварительно кешируется и поддерживает ленивую загрузку (включается в настройках, по умолчанию включено).
 

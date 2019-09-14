@@ -22,6 +22,17 @@ class plgContentYtvideo extends CMSPlugin
             return false;
         }
 
+        if ($this->params->get('oldframes') == '1') {
+            $matches = [];
+            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>]+?></iframe>|i', $article->text, $matches);
+            if (count($matches[0])) {
+                foreach ($matches[0] as $key => $res) {
+                    $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>', $article->text);
+                }
+            }
+            unset($matches);
+        }
+
         $results = [];
         preg_match_all('|{ytvideo\s(.*?)}|U', $article->text, $results);
         foreach ($results as $k => $result) {
@@ -93,7 +104,7 @@ class plgContentYtvideo extends CMSPlugin
                     foreach ($images as $img) {
                         $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img;
                         $buffer = @file_get_contents($image);
-                        if ((bool)$buffer !== false) {
+                        if ((bool) $buffer !== false) {
                             $resultImage = true;
                             if ($cachFolder) {
                                 file_put_contents($cachedImage, $buffer);
