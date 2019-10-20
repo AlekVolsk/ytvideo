@@ -10,7 +10,7 @@
     <creationDate>September 2019</creationDate>
     <packager>Aleksey A. Morozov</packager>
     <packagerurl>https://alekvolsk.pw</packagerurl>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
     <description>PKG_YTVIDEO_DESC</description>
     <php_minimum>5.6</php_minimum>
     <scriptfile>pkg_script.php</scriptfile>
