@@ -22,7 +22,7 @@ $modal_label_title = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_TITLE');
 
 ?>
 <script>
-$html = '\
+$ytvideo_html = '\
 <div id="ytvideo-modal" class="modal hide fade" role="dialog" aria-hidden="true">\
     <div class="modal-header">\
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
@@ -68,7 +68,7 @@ $html = '\
 </div>';
 
 jQuery(document).ready(function() {
-	jQuery('body').append($html);
+	jQuery('body').append($ytvideo_html);
 });
 function urlcheckYtvideo(url) {
 	var u= /http(s?):\/\/[-\w\.]{3,}\.[A-Za-z]{2,3}/;

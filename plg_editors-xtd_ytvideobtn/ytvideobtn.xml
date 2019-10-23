@@ -6,12 +6,13 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>© 2019 Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>May 2019</creationDate>
-    <version>1.5.3</version>
+    <creationDate>Oktober 2019</creationDate>
+    <version>1.5.4</version>
     <description>PLG_EDITORS-XTD_YTVIDEOBTN_XML_DESCRIPTION</description>
     <scriptfile>script.php</scriptfile>
     <files>
         <filename plugin="ytvideobtn">ytvideobtn.php</filename>
+        <folder>tmpl</folder>
     </files>
     <languages folder="language">
         <language tag="en-GB">en-GB/en-GB.plg_editors-xtd_ytvideobtn.ini</language>
