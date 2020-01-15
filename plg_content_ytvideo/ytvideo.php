@@ -11,7 +11,6 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\FileSystem\Path;
-//use Joomla\CMS\FileSystem\Folder;
 
 class plgContentYtvideo extends CMSPlugin
 {
@@ -24,13 +23,26 @@ class plgContentYtvideo extends CMSPlugin
 
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
-            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>]+?></iframe>|i', $article->text, $matches);
+            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>]+?></iframe>|i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
                     $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>', $article->text);
                 }
             }
             unset($matches);
+        }
+        
+        if ($this->params->get('oldlinks') == '1') {
+            $matches = [];
+            $title = '';
+            preg_match_all('|<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"+?>(.+?)</a>|i', $article->text, $matches);
+            if (count($matches[0])) {
+                foreach ($matches[0] as $key => $res) {
+                    $title = mb_strpos($matches[2][$key], '://') === false ? $matches[2][$key] : '';
+                    $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . ($title ? '|' . $title : '') . '}</div>', $article->text);
+                }
+            }
+            unset($matches, $title);
         }
 
         $results = [];
