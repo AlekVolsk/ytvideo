@@ -1,6 +1,6 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.6.1-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.7.0-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
@@ -12,7 +12,7 @@ This solution compares favorably with others in that it downloads video from You
 
 It is possible to optionally replace previously inserted `<iframe>` with links on YouTube to preview links, which will significantly speed up the rendering of the page. It is also possible to optionally replace text links (`<a>`) with YouTube links to preview links.
 
-The background image pre-cached and supports lazy loading (available in settings, enabled by default).
+The background image pre-cached and supports lazy loading (available in settings, enabled by default). WebP images are supported.
 
 Shortcode format:
 ```

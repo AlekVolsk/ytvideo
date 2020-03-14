@@ -2,7 +2,7 @@
 /*
  * @package     Joomla.Plugin
  * @subpackage  Content.ytvideo
- * @copyright   Copyright (C) 2019 Aleksey A. Morozov. All rights reserved.
+ * @copyright   Copyright (C) Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
@@ -21,6 +21,8 @@ class plgContentYtvideo extends CMSPlugin
             return false;
         }
 
+        $isWebP = $this->isWebP();
+
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
             preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>]+?></iframe>|i', $article->text, $matches);
@@ -38,7 +40,7 @@ class plgContentYtvideo extends CMSPlugin
             preg_match_all('|<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"+?>(.+?)</a>|i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
-                    $title = mb_strpos($matches[2][$key], '://') === false ? $matches[2][$key] : '';
+                    $title = mb_strpos($matches[2][$key], '://') === false ? strip_tags($matches[2][$key]) : '';
                     $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . ($title ? '|' . $title : '') . '}</div>', $article->text);
                 }
             }
@@ -92,29 +94,29 @@ class plgContentYtvideo extends CMSPlugin
             if (count($tmp) && isset($tmp[1])) {
                 $r_tmp = str_replace([':', ' '], ['-' . ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
                 if (in_array($r_tmp, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
-
+                    $ratio = $r_tmp;
                     unset($tmp[1]);
                 }
             }
 
             $title = '';
             if (count($tmp)) {
-                $title = trim(implode(' ', $tmp));
+                $title = trim(strip_tags(implode(' ', $tmp)));
             }
 
             $match = [];
             preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match);
 
-            $images = ['maxresdefault.jpg', 'sddefault.jpg', 'hqdefault.jpg', 'mqdefault.jpg', 'default.jpg'];
+            $images = ['maxresdefault', 'hq720', 'sddefault', 'hqdefault', 'mqdefault', 'default'];
 
             if (count($match) > 1) {
                 $resultImage = false;
                 $id = $match[1];
-                $cachedImage = $cachFolder . $id . '.jpg';
+                $cachedImage = $cachFolder . $id . ($isWebP ? '.webp' : '.jpg');
 
                 if (!file_exists($cachedImage)) {
                     foreach ($images as $img) {
-                        $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img;
+                        $image = 'https://i.ytimg.com/vi' . ($isWebP ? '_webp/' : '/') . $id . '/' . $img . ($isWebP ? '.webp' : '.jpg');
                         $buffer = @file_get_contents($image);
                         if ((bool) $buffer !== false) {
                             $resultImage = true;
@@ -126,7 +128,7 @@ class plgContentYtvideo extends CMSPlugin
                         }
                     }
                     if (!$resultImage || !file_exists($cachedImage)) {
-                        $image = '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty.png');
+                        $image = '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png'));
                     }
                 } else {
                     $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
@@ -137,5 +139,49 @@ class plgContentYtvideo extends CMSPlugin
                 $article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
             }
         }
+    }
+
+    private function isWebP() {
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+    
+        preg_match('/(Android)(?:\'&#x20;| )([0-9.]+)/', $agent, $Android);
+        preg_match('/(Version)(?:\/| )([0-9.]+)/', $agent, $Safari);
+        preg_match('/(OPR)(?:\/| )([0-9.]+)/', $agent, $Opera);
+        preg_match('/(Edge)(?:\/| )([0-9.]+)/', $agent, $Edge);
+        preg_match('/(Trident)(?:\/| )([0-9.]+)/', $agent, $IE);
+        preg_match('/(rv)(?:\:| )([0-9.]+)/', $agent, $rv);
+        preg_match('/(MSIE|Opera|Firefox|Chrome|Chromium|YandexSearch|YaBrowser)(?:\/| )([0-9.]+)/', $agent, $bi);
+    
+        $isAndroid = isset($Android[1]);
+        $isWin10 = strpos($agent, 'Windows NT 10.0') !== false;
+        
+        if ($Safari && !$isAndroid) {
+            $name = 'Safari';
+            $ver = (int)$Safari[2];
+        } elseif ($Opera) {
+            $name = 'Opera';
+            $ver = (int)$Opera[2];
+        } elseif ($Edge) {
+            $name = 'Edge';
+            $ver = (int)$Edge[2];
+        } elseif ($IE) {
+            $name = 'IE';
+            $ver = isset($rv[2]) ? (int)$rv[2] : ($isWin10 ? 11 : (int)$IE[2]);
+        } else {
+            $name = isset($bi[1]) ? $bi[1] : ($isAndroid ? 'Android' : 'Unknown');
+            $ver = isset($bi[2]) ? (int)$bi[2] :  ($isAndroid ? (float)$Android[2] : 0);
+        }
+        
+        $browsers = [
+            'Chrome' => 32,
+            'Firefox' => 65,
+            'Opera' => 19,
+            'Edge' => 18,
+            'YaBrowser' => 1,
+            'YandexSearch' => 1,
+            'Android' => 4.2
+        ];
+        
+        return in_array($name, array_keys($browsers)) && ($ver >= $browsers[$name]);
     }
 }

@@ -1,8 +1,8 @@
 <?php defined('_JEXEC') or die;
 /*
  * @package     Joomla.Plugin
- * @subpackage  Content.ytvideo
- * @copyright   Copyright (C) 2019 Aleksey A. Morozov. All rights reserved.
+ * @subpackage  Editors-xtd.ytvideo
+ * @copyright   Copyright (C) Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
@@ -27,7 +27,7 @@ $ytvideo_html = '\
     <div class="modal-header">\
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
         <h3><?php echo $modal_title; ?></h3>\
-      </div>\
+    </div>\
     <div class="modal-body">\
         <div class="form-vertical">\
             <div class="control-group">\
