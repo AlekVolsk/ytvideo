@@ -56,8 +56,8 @@ class plgContentYtvideo extends CMSPlugin
             return false;
         }
 
-        $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', ''));
-        $cachFolder = is_dir($cachFolder) ? $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR : '';
+        $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', JPATH_CACHE));
+        $cachFolder = $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR;
         if ($cachFolder && !is_dir($cachFolder)) {
             JFolder::create($cachFolder, 0755);
         }
