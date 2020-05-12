@@ -25,7 +25,7 @@ class plgContentYtvideo extends CMSPlugin
 
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
-            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>]+?></iframe>|i', $article->text, $matches);
+            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>].*?></iframe>|i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
                     $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>', $article->text);
@@ -37,9 +37,12 @@ class plgContentYtvideo extends CMSPlugin
         if ($this->params->get('oldlinks') == '1') {
             $matches = [];
             $title = '';
-            preg_match_all('|<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"+?>(.+?)</a>|i', $article->text, $matches);
+            preg_match_all('|<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"*?>(.+?)</a>|i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
+                    if (strpos(strtolower($res), 'data-no-ytvideo') !== false) {
+                        continue;
+                    }
                     $title = mb_strpos($matches[2][$key], '://') === false ? strip_tags($matches[2][$key]) : '';
                     $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . ($title ? '|' . $title : '') . '}</div>', $article->text);
                 }
@@ -184,4 +187,23 @@ class plgContentYtvideo extends CMSPlugin
         
         return in_array($name, array_keys($browsers)) && ($ver >= $browsers[$name]);
     }
+}
+
+function vd(...$args)
+{
+    print_r('<pre style="margin:0;padding:16px;font:14px/1.6 Consolas,monospace;' . 
+        'background-color:#e9f0f0;color:#333e39;border:1px solid #aaa;border-radius:2px;">');
+    foreach ($args as $i => $context) {
+        if ($i > 0) {
+            print_r('<br>===<br><br>');
+        }
+        $type = gettype($context);
+        print_r('<b>Parameter ' . $i . ' (' . $type . ($type == 'array' ? '(' . count($context) . ')' : '') . '):</b><br>');
+        if (!(bool)$context) {
+            var_dump($context);
+        } else {
+            print_r($context);
+        }
+    }
+    print_r('<br>===</pre>');
 }
