@@ -11,6 +11,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\FileSystem\Path;
+use Joomla\CMS\Uri\Uri;
 
 class plgContentYtvideo extends CMSPlugin
 {
@@ -125,16 +126,16 @@ class plgContentYtvideo extends CMSPlugin
                             $resultImage = true;
                             if ($cachFolder) {
                                 file_put_contents($cachedImage, $buffer);
-                                $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                                $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                             }
                             break;
                         }
                     }
                     if (!$resultImage || !file_exists($cachedImage)) {
-                        $image = '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png'));
+                        $image = Uri::base(true) . '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png'));
                     }
                 } else {
-                    $image = str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                    $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                 }
 
                 ob_start();
