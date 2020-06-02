@@ -6,8 +6,8 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>(C) Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>May 2020</creationDate>
-    <version>1.7.1</version>
+    <creationDate>June 2020</creationDate>
+    <version>1.7.2</version>
     <description>PLG_YTVIDEO_DESC</description>
     <scriptfile>script.php</scriptfile>
     <files>

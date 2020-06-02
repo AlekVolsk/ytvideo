@@ -189,22 +189,3 @@ class plgContentYtvideo extends CMSPlugin
         return in_array($name, array_keys($browsers)) && ($ver >= $browsers[$name]);
     }
 }
-
-function vd(...$args)
-{
-    print_r('<pre style="margin:0;padding:16px;font:14px/1.6 Consolas,monospace;' . 
-        'background-color:#e9f0f0;color:#333e39;border:1px solid #aaa;border-radius:2px;">');
-    foreach ($args as $i => $context) {
-        if ($i > 0) {
-            print_r('<br>===<br><br>');
-        }
-        $type = gettype($context);
-        print_r('<b>Parameter ' . $i . ' (' . $type . ($type == 'array' ? '(' . count($context) . ')' : '') . '):</b><br>');
-        if (!(bool)$context) {
-            var_dump($context);
-        } else {
-            print_r($context);
-        }
-    }
-    print_r('<br>===</pre>');
-}
