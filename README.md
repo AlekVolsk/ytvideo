@@ -1,6 +1,6 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.7.2-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.7.3-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 

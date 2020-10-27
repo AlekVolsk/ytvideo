@@ -15,7 +15,6 @@ use Joomla\CMS\Uri\Uri;
 
 class plgContentYtvideo extends CMSPlugin
 {
-
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
         if ($context == 'com_finder.indexer') {
@@ -34,11 +33,11 @@ class plgContentYtvideo extends CMSPlugin
             }
             unset($matches);
         }
-        
+
         if ($this->params->get('oldlinks') == '1') {
             $matches = [];
             $title = '';
-            preg_match_all('|<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"*?>(.+?)</a>|i', $article->text, $matches);
+            preg_match_all('~<a.+?href="((?:https?://)?(?:www[.]?:youtube[.]com/watch[?]v=|youtu[.]be/[^&]{11})[^"]*?)".*?>(.*?)</a>~i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
                     if (strpos(strtolower($res), 'data-no-ytvideo') !== false) {
@@ -145,9 +144,10 @@ class plgContentYtvideo extends CMSPlugin
         }
     }
 
-    private function isWebP() {
+    private function isWebP()
+    {
         $agent = $_SERVER['HTTP_USER_AGENT'];
-    
+
         preg_match('/(Android)(?:\'&#x20;| )([0-9.]+)/', $agent, $Android);
         preg_match('/(Version)(?:\/| )([0-9.]+)/', $agent, $Safari);
         preg_match('/(OPR)(?:\/| )([0-9.]+)/', $agent, $Opera);
@@ -155,10 +155,10 @@ class plgContentYtvideo extends CMSPlugin
         preg_match('/(Trident)(?:\/| )([0-9.]+)/', $agent, $IE);
         preg_match('/(rv)(?:\:| )([0-9.]+)/', $agent, $rv);
         preg_match('/(MSIE|Opera|Firefox|Chrome|Chromium|YandexSearch|YaBrowser)(?:\/| )([0-9.]+)/', $agent, $bi);
-    
+
         $isAndroid = isset($Android[1]);
         $isWin10 = strpos($agent, 'Windows NT 10.0') !== false;
-        
+
         if ($Safari && !$isAndroid) {
             $name = 'Safari';
             $ver = (int)$Safari[2];
@@ -175,7 +175,7 @@ class plgContentYtvideo extends CMSPlugin
             $name = isset($bi[1]) ? $bi[1] : ($isAndroid ? 'Android' : 'Unknown');
             $ver = isset($bi[2]) ? (int)$bi[2] :  ($isAndroid ? (float)$Android[2] : 0);
         }
-        
+
         $browsers = [
             'Chrome' => 32,
             'Firefox' => 65,
@@ -185,7 +185,7 @@ class plgContentYtvideo extends CMSPlugin
             'YandexSearch' => 1,
             'Android' => 4.2
         ];
-        
+
         return in_array($name, array_keys($browsers)) && ($ver >= $browsers[$name]);
     }
 }
