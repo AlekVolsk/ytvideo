@@ -25,7 +25,7 @@ class plgContentYtvideo extends CMSPlugin
 
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
-            preg_match_all('|<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>].*?></iframe>|i', $article->text, $matches);
+            preg_match_all('~<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>].*?></iframe>~i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
                     $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>', $article->text);
@@ -51,7 +51,7 @@ class plgContentYtvideo extends CMSPlugin
         }
 
         $results = [];
-        preg_match_all('|{ytvideo\s(.*?)}|U', $article->text, $results);
+        preg_match_all('~{ytvideo.+([^>}]*?)}~imU', $article->text, $results);
         foreach ($results as $k => $result) {
             if (!$result) {
                 unset($results[$k]);
@@ -108,7 +108,7 @@ class plgContentYtvideo extends CMSPlugin
             }
 
             $match = [];
-            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $link, $match);
+            preg_match('~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i', $link, $match);
 
             $images = ['maxresdefault', 'hq720', 'sddefault', 'hqdefault', 'mqdefault', 'default'];
 
@@ -142,6 +142,8 @@ class plgContentYtvideo extends CMSPlugin
                 $article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
             }
         }
+        $article->text = str_replace(['<p><div', '</div></p>', "</div>\n</p>"], ['<div', '</div>', '</div>'], $article->text);
+
     }
 
     private function isWebP()
