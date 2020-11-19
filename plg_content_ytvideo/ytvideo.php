@@ -37,7 +37,7 @@ class plgContentYtvideo extends CMSPlugin
         if ($this->params->get('oldlinks') == '1') {
             $matches = [];
             $title = '';
-            preg_match_all('~<a.+?href="((?:https?://)?(?:www[.]?:youtube[.]com/watch[?]v=|youtu[.]be/[^&]{11})[^"]*?)".*?>(.*?)</a>~i', $article->text, $matches);
+            preg_match_all('~<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"*?>(.+?)</a>~i', $article->text, $matches);
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
                     if (strpos(strtolower($res), 'data-no-ytvideo') !== false) {
