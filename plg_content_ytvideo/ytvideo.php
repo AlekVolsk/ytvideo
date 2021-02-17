@@ -35,19 +35,21 @@ class plgContentYtvideo extends CMSPlugin
         }
 
         if ($this->params->get('oldlinks') == '1') {
-            $matches = [];
-            $title = '';
-            preg_match_all('~<a.+?href="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/(?:watch\?v=)?([a-zA-Z0-9_-]{11})(?:.+)?"*?>(.+?)</a>~i', $article->text, $matches);
-            if (count($matches[0])) {
-                foreach ($matches[0] as $key => $res) {
+            $_alllinks = [];
+            preg_match_all('~<a\s.*?href="(.+?)".*?>(.+?)</a>~im', $article->text, $_alllinks);
+            if (count($_alllinks[0])) {
+                foreach ($_alllinks[0] as $key => $res) {
                     if (strpos(strtolower($res), 'data-no-ytvideo') !== false) {
                         continue;
                     }
-                    $title = mb_strpos($matches[2][$key], '://') === false ? strip_tags($matches[2][$key]) : '';
-                    $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . ($title ? '|' . $title : '') . '}</div>', $article->text);
+                    $match = [];
+                    preg_match('~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i', $res, $match);
+                    if (count($match)) {
+                        $title = mb_strpos($_alllinks[2][$key], '://') === false ? strip_tags($_alllinks[2][$key]) : '';
+                        $article->text = str_replace($res, '{ytvideo https://youtube.com/watch?v=' . $match[1] . ($title ? '|' . $title : '') . '}', $article->text);
+                    }
                 }
             }
-            unset($matches, $title);
         }
 
         $results = [];
@@ -142,7 +144,7 @@ class plgContentYtvideo extends CMSPlugin
                 $article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
             }
         }
-        $article->text = str_replace(['<p><div', '</div></p>', "</div>\n</p>"], ['<div', '</div>', '</div>'], $article->text);
+        $article->text = str_replace(['<p><div', '</div></p>', "</div>\n</p>", '<p></p>'], ['<div', '</div>', '</div>', ''], $article->text);
 
     }
 
