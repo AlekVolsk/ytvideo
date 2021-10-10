@@ -6,8 +6,8 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>(C) Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>February 2021</creationDate>
-    <version>1.7.5</version>
+    <creationDate>October 2021</creationDate>
+    <version>1.8.0</version>
     <description>PLG_YTVIDEO_DESC</description>
     <scriptfile>script.php</scriptfile>
     <files>
@@ -25,10 +25,15 @@
         <fields name="params">
             <fieldset name="basic">
                 <field name="format" type="radio" label="PLG_YTVIDEO_FORMAT" class="btn-group btn-yesno" default="16-9">
-                    <option value="18-9">18:9</option>
-                    <option value="16-9">16:9</option>
-                    <option value="16-10">16:10</option>
-                    <option value="4-3">4:3</option>
+                    <option value="4-3">4:3 (TV)</option>
+                    <option value="5-3">5:3 (Wide TV)</option>
+                    <option value="16-9">16:9 (Standard YouTube, HD)</option>
+                    <option value="167-9">16.7:9 (Standard films)</option>
+                    <option value="18-9">18:9 (iPhone)</option>
+                    <option value="199-9">19.9:9 (Wide 70mm)</option>
+                    <option value="235-1">2.35:1 (Panavision)</option>
+                    <option value="255-1">2.55:1 (Cinemascope)</option>
+                    <option value="27-1">2.7:1 (Ultra Panavision, 2K/4K)</option>
                 </field>
                 <field name="includes" type="radio" label="PLG_YTVIDEO_INCLUDES" class="btn-group btn-yesno" default="1">
                     <option value="1">JYES</option>

@@ -97,8 +97,18 @@ class plgContentYtvideo extends CMSPlugin
 
             $ratio = $format;
             if (count($tmp) && isset($tmp[1])) {
-                $r_tmp = str_replace([':', ' '], ['-' . ''], preg_replace('/[0-9]-:[0-9]/', '', $tmp[1]));
-                if (in_array($r_tmp, ['18:9', '16:9', '16:10', '4:3', '18-9', '16-9', '16-10', '4-3'])) {
+                $r_tmp = str_replace([':', ' ', '.'], ['-', '', ''], preg_replace('/[0-9.]-:[0-9]/', '', $tmp[1]));
+                if (in_array($r_tmp, [
+                        '4-3', '4:3',
+                        '5-3', '5:3',
+                        '16-9', '16:9',
+                        '167-9', '16.7:9',
+                        '18-9', '18:9',
+                        '199-9', '19.9:9',
+                        '235-1', '2.35:1',
+                        '255-1', '2.55:1',
+                        '27-1', '2.7:1'
+                    ])) {
                     $ratio = $r_tmp;
                     unset($tmp[1]);
                 }

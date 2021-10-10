@@ -1,6 +1,6 @@
 # YtVideo
 
-![Version](https://img.shields.io/badge/VERSION-1.7.5-0366d6.svg?style=for-the-badge)
+![Version](https://img.shields.io/badge/VERSION-1.8.0-0366d6.svg?style=for-the-badge)
 ![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
@@ -26,6 +26,18 @@ For example:
 
 Some parts of the shortcode may be missing, but their order must be preserved: address|ratio|title.
 
-Allowable aspect ratios are: `4:3`, `16:10`, `16:9`, `18:9` (a minus sign is allowed to be substituted for a colon). Incorrect aspect ratio will be part of the heading following it.
+Allowable aspect ratios are:
+
+- 4:3 (TV)
+- 5:3 (Wide TV)
+- 16:9 (Standard YouTube, HD)
+- 16.7:9 (Standard films)
+- 18:9 (iPhone)
+- 19.9:9 (Wide 70mm)
+- 2.35:1 (Panavision)
+- 2.55:1 (Cinemascope)
+- 2.7:1 (Ultra Panavision, 2K/4K)
+
+A minus sign is allowed to be substituted for a colon, the decimal separator is skipped. Incorrect aspect ratio will be part of the heading following it.
 
 Specifying a title is optional. To quickly insert a shortcode, there is an editor button that opens a dialog box that allows you to enter the url and title of the video in the appropriate fields.

@@ -13,26 +13,46 @@
 	overflow: hidden;
 }
 
-.ytvideo-18-9 {
-	padding-bottom: 50%;
+.ytvideo-4-3 {
+	padding-bottom: 75%;
+}
+
+.ytvideo-5-3 {
+	padding-bottom: 60%;
 }
 
 .ytvideo-16-9 {
 	padding-bottom: 56.25%;
 }
 
-.ytvideo-16-10 {
-	padding-bottom: 62.5%;
+.ytvideo-167-9 {
+	padding-bottom: 53.89%;
 }
 
-.ytvideo-4-3 {
-	padding-bottom: 75%;
+.ytvideo-18-9 {
+	padding-bottom: 50%;
+}
+
+.ytvideo-199-9 {
+	padding-bottom: 45.22%;
+}
+
+.ytvideo-235-1 {
+	padding-bottom: 42.45%;
+}
+
+.ytvideo-255-1 {
+	padding-bottom: 39.21%;
+}
+
+.ytvideo-27-1 {
+	padding-bottom: 37.04%;
 }
 
 .ytvideo-cover,
 .ytvideo-cover:before,
-.ytvideo iframe,  
-.ytvideo object,  
+.ytvideo iframe,
+.ytvideo object,
 .ytvideo embed {
 	position: absolute;
 	top: 0;
