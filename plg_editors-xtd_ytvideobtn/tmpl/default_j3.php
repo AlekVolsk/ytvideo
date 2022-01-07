@@ -21,60 +21,58 @@ $modal_label_title = Text::_('PLG_EDITORS-XTD_YTVIDEOBTN_LABEL_TITLE');
 /* The script is attached to the id of the elements, be careful when making changes to the markup. */
 
 ?>
-<script>
-$ytvideo_html = '\
-<div id="ytvideo-modal" class="modal hide fade" role="dialog" aria-hidden="true">\
-    <div class="modal-header">\
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
-        <h3><?php echo $modal_title; ?></h3>\
-    </div>\
-    <div class="modal-body">\
-        <div class="form-vertical">\
-            <div class="control-group">\
-                <div class="control-label">\
-                    <label for="ytvideo-url"><?php echo $modal_label_url; ?></label>\
-                </div>\
-                <div class="controls">\
-                    <input name="ytvideourl" id="ytvideo-url" value="" class="span12" type="text">\
-                </div>\
-            </div>\
-            <div class="control-group">\
-                <div class="control-label">\
-                    <label for="ytvideo-ratio"><?php echo $modal_label_ratio; ?></label>\
-                </div>\
-                <div class="controls">\
-                    <select name="ytvideoratio" id="ytvideo-ratio" class="span12">\
-                        <option value="4-3">4:3 (TV)</option>\
-                        <option value="5-3">5:3 (Wide TV)</option>\
-                        <option value="16-9" selected>16:9 (Standard YouTube, HD)</option>\
-                        <option value="167-9">16.7:9 (Standard films)</option>\
-                        <option value="18-9">18:9 (iPhone)</option>\
-                        <option value="199-9">19.9:9 (Wide 70mm)</option>\
-                        <option value="235-1">2.35:1 (Panavision)</option>\
-                        <option value="255-1">2.55:1 (Cinemascope)</option>\
-                        <option value="27-1">2.7:1 (Ultra Panavision, 2K/4K)</option>\
-                    </select>\
-                </div>\
-            </div>\
-            <div class="control-group">\
-                <div class="control-label">\
-                    <label for="ytvideo-title"><?php echo $modal_label_title; ?></label>\
-                </div>\
-                <div class="controls">\
-                    <input name="ytvideotitle" id="ytvideo-title" value="" class="span12" type="text">\
-                </div>\
-            </div>\
-        </div>\
-    </div>\
-    <div class="modal-footer">\
-        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true"><?php echo $modal_brn_insert; ?></button>\
-        <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $modal_btn_cancel; ?></button>\
-    </div>\
-</div>';
 
-jQuery(document).ready(function() {
-	jQuery('body').append($ytvideo_html);
-});
+<div id="ytvideo-modal" class="modal hide fade" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><?php echo $modal_title; ?></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-vertical">
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="ytvideo-url"><?php echo $modal_label_url; ?></label>
+                </div>
+                <div class="controls">
+                    <input name="ytvideourl" id="ytvideo-url" value="" class="span12" type="text">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="ytvideo-ratio"><?php echo $modal_label_ratio; ?></label>
+                </div>
+                <div class="controls">
+                    <select name="ytvideoratio" id="ytvideo-ratio" class="span12">
+                        <option value="4-3">4:3 (TV)</option>
+                        <option value="5-3">5:3 (Wide TV)</option>
+                        <option value="16-9" selected>16:9 (Standard YouTube, HD)</option>
+                        <option value="167-9">16.7:9 (Standard films)</option>
+                        <option value="18-9">18:9 (iPhone)</option>
+                        <option value="199-9">19.9:9 (Wide 70mm)</option>
+                        <option value="235-1">2.35:1 (Panavision)</option>
+                        <option value="255-1">2.55:1 (Cinemascope)</option>
+                        <option value="27-1">2.7:1 (Ultra Panavision, 2K/4K)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label for="ytvideo-title"><?php echo $modal_label_title; ?></label>
+                </div>
+                <div class="controls">
+                    <input name="ytvideotitle" id="ytvideo-title" value="" class="span12" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true"><?php echo $modal_brn_insert; ?></button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $modal_btn_cancel; ?></button>
+    </div>
+</div>
+
+<script>
+
 function urlcheckYtvideo(url) {
 	var u= /http(s?):\/\/[-\w\.]{3,}\.[A-Za-z]{2,3}/;
 	return u.test( url );
@@ -100,3 +98,7 @@ window.insertYtvideo = function(editor)
 	});
 };
 </script>
+
+<style>
+.hide {display: none}
+</style>

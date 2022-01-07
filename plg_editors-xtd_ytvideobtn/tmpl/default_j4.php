@@ -96,3 +96,7 @@ window.insertYtvideo = function(editor)
 
 })();
 </script>
+
+<style>
+.modal {display: none}
+</style>
