@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.ytvideo > .ytvideo-cover').forEach(function (el) {
         el.addEventListener('click', function (e) {
             var target = e.target || e.srcElement;
-            target.innerHTML = "<iframe src='//youtube.com/embed/" + target.dataset.videosrc + "?autoplay=1&rel=0&iv_load_policy=3' allow='accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture' allowfullscreen style='border:0;'></iframe>";
+            target.innerHTML = "<iframe src='//youtube.com/embed/" + target.dataset.videosrc + "?autoplay=1&mute=1&rel=0&iv_load_policy=3' allow='accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture' allowfullscreen style='border:0;'></iframe>";
         });
     });
 });
