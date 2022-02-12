@@ -12,6 +12,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\FileSystem\Path;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Filesystem\Folder;
 
 class plgContentYtvideo extends CMSPlugin
 {
@@ -66,11 +67,14 @@ class plgContentYtvideo extends CMSPlugin
         $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', JPATH_CACHE));
         $cachFolder = $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR;
         if ($cachFolder && !is_dir($cachFolder)) {
-            JFolder::create($cachFolder, 0755);
+            Folder::create($cachFolder, 0755);
         }
 
         $layout = PluginHelper::getLayoutPath('content', 'ytvideo');
         $format = $this->params->get('format', '16-9');
+        $mute = (int) $this->params->get('mute', 0);
+
+        Factory::getDocument()->addScriptDeclaration('window.ytvideo_mute = ' . $mute);
 
         HTMLHelper::script('plugins/content/ytvideo/assets/ytvideo.js', [], ['options' => ['version' => 'auto']]);
 
@@ -155,7 +159,6 @@ class plgContentYtvideo extends CMSPlugin
             }
         }
         $article->text = str_replace(['<p><div', '</div></p>', "</div>\n</p>", '<p></p>'], ['<div', '</div>', '</div>', ''], $article->text);
-
     }
 
     private function isWebP()
