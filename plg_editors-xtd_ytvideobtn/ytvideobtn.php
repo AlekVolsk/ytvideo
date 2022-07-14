@@ -23,7 +23,7 @@ class PlgEditorsXtdYtvideobtn extends CMSPlugin
     public function onDisplay($name, $asset, $author)
     {
         $layout = Path::clean(PluginHelper::getLayoutPath('editors-xtd', 'ytvideobtn'));
-        $layout = str_replace('.php',  '_j' . Version::MAJOR_VERSION . '.php', $layout);
+        $layout = str_replace('.php', '_j' . Version::MAJOR_VERSION . '.php', $layout);
         if (file_exists($layout)) {
             include $layout;
             Factory::getDocument()->addStyleDeclaration('#ytvideo-modal{top:50%;left:50%;width:600px;max-width:98%;margin-left:0;transform:translate(-50%,-50%);}#ytvideo-modal .modal-body{box-sizing:border-box;padding:15px 30px 15px 15px;}');
@@ -39,6 +39,8 @@ class PlgEditorsXtdYtvideobtn extends CMSPlugin
             $button->onclick = 'insertYtvideo(\'' . $name . '\');return false;';
 
             return $button;
-        } else return;
+        } else {
+            return;
+        }
     }
 }

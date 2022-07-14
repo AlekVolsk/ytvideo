@@ -6,8 +6,8 @@
     <authorUrl>https://alekvolsk.pw</authorUrl>
     <copyright>(C) Aleksey A. Morozov. All right reserved.</copyright>
     <license>GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt</license>
-    <creationDate>January 2022</creationDate>
-    <version>1.6.1</version>
+    <creationDate>July 2022</creationDate>
+    <version>1.8.4</version>
     <description>PLG_EDITORS-XTD_YTVIDEOBTN_XML_DESCRIPTION</description>
     <scriptfile>script.php</scriptfile>
     <files>

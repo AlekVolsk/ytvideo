@@ -136,14 +136,17 @@ class plgContentYtvideo extends CMSPlugin
                 if (!file_exists($cachedImage)) {
                     foreach ($images as $img) {
                         $image = 'https://i.ytimg.com/vi' . ($isWebP ? '_webp/' : '/') . $id . '/' . $img . ($isWebP ? '.webp' : '.jpg');
-                        $buffer = @file_get_contents($image);
-                        if ((bool) $buffer !== false) {
-                            $resultImage = true;
-                            if ($cachFolder) {
-                                file_put_contents($cachedImage, $buffer);
-                                $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                        $headers = get_headers($image);
+                        if (is_array($headers) && strpos($headers[0], ' 404') !== false) {
+                            $buffer = file_get_contents($image);
+                            if ((bool) $buffer !== false) {
+                                $resultImage = true;
+                                if ($cachFolder) {
+                                    file_put_contents($cachedImage, $buffer);
+                                    $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                     if (!$resultImage || !file_exists($cachedImage)) {
