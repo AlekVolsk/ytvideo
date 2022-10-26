@@ -1,9 +1,12 @@
-<?php defined('_JEXEC') or die;
+<?php
+
 /*
  * @package     Joomla.Plugin
  * @subpackage  Content.ytvideo
  * @copyright   Copyright (C) Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
  */
 
 use Joomla\CMS\Factory;
@@ -14,7 +17,11 @@ use Joomla\CMS\FileSystem\Path;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Filesystem\Folder;
 
-class plgContentYtvideo extends CMSPlugin
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class PlgContentYtvideo extends CMSPlugin
 {
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
@@ -26,10 +33,19 @@ class plgContentYtvideo extends CMSPlugin
 
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
-            preg_match_all('~<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?/embed/([a-zA-Z0-9_-]{11}).+?"[^>].*?></iframe>~i', $article->text, $matches);
+            preg_match_all(
+                '~<iframe.+?src="h?t?t?p?s?:?//w?w?w?.?youtu.?be(?:-nocookie)?.?c?o?m?' .
+                    '/embed/([a-zA-Z0-9_-]{11}).+?"[^>].*?></iframe>~i',
+                $article->text,
+                $matches
+            );
             if (count($matches[0])) {
                 foreach ($matches[0] as $key => $res) {
-                    $article->text = str_replace($res, '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>', $article->text);
+                    $article->text = str_replace(
+                        $res,
+                        '<div>{ytvideo https://youtube.com/watch?v=' . $matches[1][$key] . '|}</div>',
+                        $article->text
+                    );
                 }
             }
             unset($matches);
@@ -44,10 +60,19 @@ class plgContentYtvideo extends CMSPlugin
                         continue;
                     }
                     $match = [];
-                    preg_match('~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i', $res, $match);
+                    preg_match(
+                        '~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/' .
+                            '|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i',
+                        $res,
+                        $match
+                    );
                     if (count($match)) {
                         $title = mb_strpos($_alllinks[2][$key], '://') === false ? strip_tags($_alllinks[2][$key]) : '';
-                        $article->text = str_replace($res, '{ytvideo https://youtube.com/watch?v=' . $match[1] . ($title ? '|' . $title : '') . '}', $article->text);
+                        $article->text = str_replace(
+                            $res,
+                            '{ytvideo https://youtube.com/watch?v=' . $match[1] . ($title ? '|' . $title : '') . '}',
+                            $article->text
+                        );
                     }
                 }
             }
@@ -89,8 +114,16 @@ class plgContentYtvideo extends CMSPlugin
 
         $lazysizes = $this->params->get('lazysizes') == '1';
         if ($lazysizes) {
-            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js', [], ['options' => ['version' => 'auto']]);
-            HTMLHelper::script('plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js', [], ['options' => ['version' => 'auto']]);
+            HTMLHelper::script(
+                'plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js',
+                [],
+                ['options' => ['version' => 'auto']]
+            );
+            HTMLHelper::script(
+                'plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js',
+                [],
+                ['options' => ['version' => 'auto']]
+            );
         }
 
         foreach ($results[1] as $key => $link) {
@@ -102,7 +135,8 @@ class plgContentYtvideo extends CMSPlugin
             $ratio = $format;
             if (count($tmp) && isset($tmp[1])) {
                 $r_tmp = str_replace([':', ' ', '.'], ['-', '', ''], preg_replace('/[0-9.]-:[0-9]/', '', $tmp[1]));
-                if (in_array($r_tmp, [
+                if (
+                    in_array($r_tmp, [
                         '4-3', '4:3',
                         '5-3', '5:3',
                         '16-9', '16:9',
@@ -112,7 +146,8 @@ class plgContentYtvideo extends CMSPlugin
                         '235-1', '2.35:1',
                         '255-1', '2.55:1',
                         '27-1', '2.7:1'
-                    ])) {
+                    ])
+                ) {
                     $ratio = $r_tmp;
                     unset($tmp[1]);
                 }
@@ -124,7 +159,11 @@ class plgContentYtvideo extends CMSPlugin
             }
 
             $match = [];
-            preg_match('~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i', $link, $match);
+            preg_match(
+                '~(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})~i',
+                $link,
+                $match
+            );
 
             $images = ['maxresdefault', 'hq720', 'sddefault', 'hqdefault', 'mqdefault', 'default'];
 
@@ -142,17 +181,22 @@ class plgContentYtvideo extends CMSPlugin
                                 $resultImage = true;
                                 if ($cachFolder) {
                                     file_put_contents($cachedImage, $buffer);
-                                    $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                                    $image = Uri::base(true) .
+                                        str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                                 }
                                 break;
                             }
                         }
                     }
                     if (!$resultImage || !file_exists($cachedImage)) {
-                        $image = Uri::base(true) . '/' . $this->params->get('emptyimg', 'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png'));
+                        $image = Uri::base(true) . '/' . $this->params->get(
+                            'emptyimg',
+                            'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png')
+                        );
                     }
                 } else {
-                    $image = Uri::base(true) . str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                    $image = Uri::base(true) .
+                        str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
                 }
 
                 ob_start();
@@ -160,12 +204,19 @@ class plgContentYtvideo extends CMSPlugin
                 $article->text = str_replace($results[0][$key], ob_get_clean(), $article->text);
             }
         }
-        $article->text = str_replace(['<p><div', '</div></p>', "</div>\n</p>", '<p></p>'], ['<div', '</div>', '</div>', ''], $article->text);
+        $article->text = str_replace(
+            ['<p><div', '</div></p>', "</div>\n</p>", '<p></p>'],
+            ['<div', '</div>', '</div>', ''],
+            $article->text
+        );
     }
 
     private function isWebP()
     {
-        $agent = $_SERVER['HTTP_USER_AGENT'];
+        $agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        if (!$agent) {
+            return false;
+        }
 
         preg_match('/(Android)(?:\'&#x20;| )([0-9.]+)/', $agent, $Android);
         preg_match('/(Version)(?:\/| )([0-9.]+)/', $agent, $Safari);

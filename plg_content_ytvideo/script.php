@@ -1,16 +1,23 @@
-<?php defined('_JEXEC') or die;
+<?php
+
 /*
  * @package     Joomla.Plugin
  * @subpackage  Content.ytvideo
  * @copyright   Copyright (C) Aleksey A. Morozov. All rights reserved.
  * @license     GNU General Public License version 3 or later; see http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
  */
 
 use Joomla\CMS\Factory;
 
-class plgContentYtvideoInstallerScript
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class PlgContentYtvideoInstallerScript
 {
-    function postflight($type, $parent)
+    public function postflight($type, $parent)
     {
         $db = Factory::getDbo();
         $query = $db->getQuery(true);

@@ -1,12 +1,12 @@
 # YtVideo
 
 ![Version](https://img.shields.io/badge/VERSION-1.8.5-0366d6.svg?style=for-the-badge)
-![Joomla](https://img.shields.io/badge/joomla-3.7+-1A3867.svg?style=for-the-badge)
+![Joomla!](https://img.shields.io/badge/Joomla!-3.7+-1A3867.svg?style=for-the-badge)
 ![Php](https://img.shields.io/badge/php-5.6+-8892BF.svg?style=for-the-badge)
 
 _description in Russian [here](README.ru.md)_
 
-Content plugin for Joomla! 3 for video output from YouTube.
+Content plugin for Joomla! 3 or 4 for video output from YouTube.
 
 This solution compares favorably with others in that it downloads video from YouTube not when loading the page, but only after the playback starts, thus creating no delays when loading the page.
 
