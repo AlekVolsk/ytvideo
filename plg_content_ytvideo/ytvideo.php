@@ -29,8 +29,6 @@ class PlgContentYtvideo extends CMSPlugin
             return false;
         }
 
-        $isWebP = $this->isWebP();
-
         if ($this->params->get('oldframes') == '1') {
             $matches = [];
             preg_match_all(
@@ -191,7 +189,7 @@ class PlgContentYtvideo extends CMSPlugin
                     if (!$resultImage || !file_exists($cachedImage)) {
                         $image = Uri::base(true) . '/' . $this->params->get(
                             'emptyimg',
-                            'plugins/content/ytvideo/assets/empty' . ($isWebP ? '.webp' : '.png')
+                            'plugins/content/ytvideo/assets/empty.jpg'
                         );
                     }
                 } else {
@@ -209,53 +207,5 @@ class PlgContentYtvideo extends CMSPlugin
             ['<div', '</div>', '</div>', ''],
             $article->text
         );
-    }
-
-    private function isWebP()
-    {
-        $agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
-        if (!$agent) {
-            return false;
-        }
-
-        preg_match('/(Android)(?:\'&#x20;| )([0-9.]+)/', $agent, $Android);
-        preg_match('/(Version)(?:\/| )([0-9.]+)/', $agent, $Safari);
-        preg_match('/(OPR)(?:\/| )([0-9.]+)/', $agent, $Opera);
-        preg_match('/(Edge)(?:\/| )([0-9.]+)/', $agent, $Edge);
-        preg_match('/(Trident)(?:\/| )([0-9.]+)/', $agent, $IE);
-        preg_match('/(rv)(?:\:| )([0-9.]+)/', $agent, $rv);
-        preg_match('/(MSIE|Opera|Firefox|Chrome|Chromium|YandexSearch|YaBrowser)(?:\/| )([0-9.]+)/', $agent, $bi);
-
-        $isAndroid = isset($Android[1]);
-        $isWin10 = strpos($agent, 'Windows NT 10.0') !== false;
-
-        if ($Safari && !$isAndroid) {
-            $name = 'Safari';
-            $ver = (int)$Safari[2];
-        } elseif ($Opera) {
-            $name = 'Opera';
-            $ver = (int)$Opera[2];
-        } elseif ($Edge) {
-            $name = 'Edge';
-            $ver = (int)$Edge[2];
-        } elseif ($IE) {
-            $name = 'IE';
-            $ver = isset($rv[2]) ? (int)$rv[2] : ($isWin10 ? 11 : (int)$IE[2]);
-        } else {
-            $name = isset($bi[1]) ? $bi[1] : ($isAndroid ? 'Android' : 'Unknown');
-            $ver = isset($bi[2]) ? (int)$bi[2] :  ($isAndroid ? (float)$Android[2] : 0);
-        }
-
-        $browsers = [
-            'Chrome' => 32,
-            'Firefox' => 65,
-            'Opera' => 19,
-            'Edge' => 18,
-            'YaBrowser' => 1,
-            'YandexSearch' => 1,
-            'Android' => 4.2
-        ];
-
-        return in_array($name, array_keys($browsers)) && ($ver >= $browsers[$name]);
     }
 }
