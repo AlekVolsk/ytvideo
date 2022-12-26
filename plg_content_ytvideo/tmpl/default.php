@@ -14,14 +14,10 @@
 ?>
 <div class="ytvideo ytvideo-<?php echo $ratio; ?>">
     <a
-        class="ytvideo-cover lazyload"
+        class="ytvideo-cover"
         loading="lazy"
         data-videosrc="<?php echo $id; ?>"
-        <?php if ($lazysizes) { ?>
-        data-bgset="<?php echo $image; ?>"
-        <?php } else { ?>
         style="background-image:url('<?php echo $image; ?>')"
-        <?php } ?>
     >
         <?php if ($title) { ?>
         <span class="ytvideo-title"><?php echo $title; ?></span>

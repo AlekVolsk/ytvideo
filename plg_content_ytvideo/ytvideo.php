@@ -110,20 +110,6 @@ class PlgContentYtvideo extends CMSPlugin
             HTMLHelper::stylesheet($css, [], ['options' => ['version' => 'auto']]);
         }
 
-        $lazysizes = $this->params->get('lazysizes') == '1';
-        if ($lazysizes) {
-            HTMLHelper::script(
-                'plugins/content/ytvideo/assets/lazysizes/ls.bgset.min.js',
-                [],
-                ['options' => ['version' => 'auto']]
-            );
-            HTMLHelper::script(
-                'plugins/content/ytvideo/assets/lazysizes/lazysizes.min.js',
-                [],
-                ['options' => ['version' => 'auto']]
-            );
-        }
-
         foreach ($results[1] as $key => $link) {
             $tmp = explode('|', strip_tags($link));
 
@@ -168,28 +154,40 @@ class PlgContentYtvideo extends CMSPlugin
             if (count($match) > 1) {
                 $resultImage = false;
                 $id = $match[1];
-                $cachedImage = $cachFolder . $id . '.jpg';
+                $cachedImage = $cachFolder . $id . '.webp';
+                if (!file_exists($cachedImage)) {
+                    $cachedImage = $cachFolder . $id . '.jpg';
+                }
                 if (!file_exists($cachedImage)) {
                     foreach ($images as $img) {
-                        $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img . '.jpg';
-                        $headers = get_headers($image);
-                        if (is_array($headers) && strpos($headers[0], ' 200') > 0) {
-                            $buffer = file_get_contents($image);
-                            if ((bool) $buffer !== false) {
-                                $resultImage = true;
-                                if ($cachFolder) {
-                                    file_put_contents($cachedImage, $buffer);
-                                    $image = Uri::base(true) .
-                                        str_replace('\\', '/', str_replace(Path::clean(JPATH_ROOT), '', $cachedImage));
+                        if ($resultImage) {
+                            break;
+                        }
+                        foreach (['.webp', '.jpg'] as $ext) {
+                            $image = 'https://i.ytimg.com/vi/' . $id . '/' . $img . $ext;
+                            $headers = get_headers($image);
+                            if (is_array($headers) && strpos($headers[0], ' 200') > 0) {
+                                $buffer = file_get_contents($image);
+                                if ((bool) $buffer !== false) {
+                                    $resultImage = true;
+                                    if ($cachFolder) {
+                                        file_put_contents($cachedImage, $buffer);
+                                        $image = Uri::base(true) .
+                                            str_replace(
+                                                '\\',
+                                                '/',
+                                                str_replace(Path::clean(JPATH_ROOT), '', $cachedImage)
+                                            );
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
                     if (!$resultImage || !file_exists($cachedImage)) {
                         $image = Uri::base(true) . '/' . $this->params->get(
                             'emptyimg',
-                            'plugins/content/ytvideo/assets/empty.jpg'
+                            'plugins/content/ytvideo/assets/empty.webp'
                         );
                     }
                 } else {
