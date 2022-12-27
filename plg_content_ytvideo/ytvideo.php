@@ -88,6 +88,7 @@ class PlgContentYtvideo extends CMSPlugin
         }
 
         $cachFolder = Path::clean(Factory::getConfig()->get('cache_path', JPATH_CACHE));
+        $cachFolder = str_replace('administrator' . DIRECTORY_SEPARATOR, '', $cachFolder);
         $cachFolder = $cachFolder . DIRECTORY_SEPARATOR . 'plg_content_ytvideo' . DIRECTORY_SEPARATOR;
         if ($cachFolder && !is_dir($cachFolder)) {
             Folder::create($cachFolder, 0755);
